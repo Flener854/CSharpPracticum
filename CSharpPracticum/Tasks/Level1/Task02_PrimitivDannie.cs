@@ -24,7 +24,7 @@ namespace CSharpPracticum.Tasks.Level1
             bool f = true;
             char g = 'A';
             string s = "aa";
-
+             
             Console.WriteLine($"a = {a} ({a.GetType().Name}) ");
             Console.WriteLine($"b = {b} ({b.GetType().Name}) ");
             Console.WriteLine($"c = {c} ({c.GetType().Name}) ");
