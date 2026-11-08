@@ -1,3 +1,10 @@
+# Git notes
+## Task 15 — Basic git
+### Commands
+Репозиторий был уже создан, команды я не использовал, с помощью средств VS создал ветку и изменил README.md файл, залил и слил ветки между собой, выбрал решение конфликта в github.
+и использовал команду вывода в консоль
+git log --graph --oneline --all
+### Output (git log --graph --oneline --all)
 * 832bf2b (HEAD -> master, origin/master, origin/HEAD) задание 15
 *   4c47764 Merge branch 'master' of https://github.com/Flener854/CSharpPracticum
 |\
