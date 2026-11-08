@@ -1,11 +1,17 @@
 ﻿using CSharpPracticum.Common;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace CSharpPracticum.Menu
 {
+    /// <summary>
+    /// Main menu and runner all menu
+    /// </summary>
     internal class MenuRunner
     {
         private bool IsInit = false;
@@ -71,7 +77,6 @@ namespace CSharpPracticum.Menu
             if (IsInit) return;
             new LevelMenu("Level-1");
             //new LevelMenu("Level-2");
-            //new LevelMenu("Level-3");
         }
         /// <summary>
         /// Add task in level by name
