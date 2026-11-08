@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CSharpPracticum.Tasks.Level1
 {
-    [Common.TaskInfoAttribute("Level-1")]
+    [Common.TaskInfoAttribute("Level-1",12)]
     internal class Task12_Palindrom : Common.ITask
     {
         string ITask.Title => "Палиндром (без учёта регистра/пробелов)";

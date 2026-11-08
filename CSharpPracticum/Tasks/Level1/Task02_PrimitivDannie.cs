@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CSharpPracticum.Tasks.Level1
 {
-    [Common.TaskInfoAttribute("Level-1")]
+    [Common.TaskInfoAttribute("Level-1",2)]
     internal class Task02_PrimitivDannie : Common.ITask
     {
         string ITask.Title => "Переменные примитивных типов";

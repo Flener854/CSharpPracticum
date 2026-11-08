@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CSharpPracticum.Tasks.Level1
 {
-    [Common.TaskInfoAttribute("Level-1")]
+    [Common.TaskInfoAttribute("Level-1",9)]
     internal class Task09_Array : Common.ITask
     {
         string ITask.Title => "Массивы: min/max/sum/avg";

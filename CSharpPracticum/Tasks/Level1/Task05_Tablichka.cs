@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CSharpPracticum.Tasks.Level1
 {
-    [Common.TaskInfoAttribute("Level-1")]
+    [Common.TaskInfoAttribute("Level-1",5)]
     internal class Task05_Tablichka : Common.ITask
     {
         string ITask.Title => "Таблица умножения 10×10";

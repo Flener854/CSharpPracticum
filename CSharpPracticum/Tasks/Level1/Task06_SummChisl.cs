@@ -6,7 +6,7 @@ using System.Text;
 
 namespace CSharpPracticum.Tasks.Level1
 {
-    [Common.TaskInfoAttribute("Level-1")]
+    [Common.TaskInfoAttribute("Level-1",6)]
 
     internal class Task06_SummChisl : Common.ITask
     {

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CSharpPracticum.Tasks.Level1
 {
-    [Common.TaskInfoAttribute("Level-1")]
+    [Common.TaskInfoAttribute("Level-1",3)]
     internal class Task03_Kalkulate : Common.ITask
     {
         string ITask.Title => "Калькулятор с обработкой деления на ноль";
