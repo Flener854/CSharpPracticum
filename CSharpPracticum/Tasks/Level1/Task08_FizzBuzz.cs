@@ -1,0 +1,33 @@
+﻿using System;
+using CSharpPracticum.Common;
+using System.Collections.Generic;
+using System.Text;
+
+namespace CSharpPracticum.Tasks.Level1
+{
+    [Common.TaskInfoAttribute("Level-1")]
+    internal class Task08_FizzBuzz : Common.ITask
+    {
+        string ITask.Title => "FizzBuzz 1–100";
+
+        string ITask.Description => "Что сделать: вывести числа от 1 до 100 с заменами.";
+
+        string[] ITask.Requirements => new[] { "Кратно 3 → Fizz.", "Кратно 5 → Buzz.", "Кратно 15 → FizzBuzz.", "Иначе — само число.", "Порядок проверок: сначала 15, потом 3 и 5." };
+
+
+        void ITask.Run()
+        {
+            for (int i = 1; i <= 100; i++)
+            {
+                if (i % 15 == 0)        
+                    Console.WriteLine("FizzBuzz");
+                else if (i % 3 == 0)
+                    Console.WriteLine("Fizz");
+                else if (i % 5 == 0)
+                    Console.WriteLine("Buzz");
+                else
+                    Console.WriteLine(i);
+            }
+        }
+    }
+}
