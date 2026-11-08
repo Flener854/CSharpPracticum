@@ -1,7 +1,11 @@
 ﻿using CSharpPracticum.Common;
+using CSharpPracticum.Menu;
+using CSharpPracticum.Common;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace CSharpPracticum.Menu
 {
@@ -40,6 +44,7 @@ namespace CSharpPracticum.Menu
                 }
                 Console.WriteLine("[запуск решения]...\n");
                 Tasks[TaskIndex].Run();
+                Console.WriteLine("\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
             }
 
         }
