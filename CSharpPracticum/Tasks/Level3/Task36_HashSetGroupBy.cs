@@ -28,7 +28,7 @@ namespace CSharpPracticum.Tasks.Level3
             return duplicates.ToList();
         }
 
-       
+        
         public static List<int> FindDuplicatesWithLinq(IEnumerable<int> numbers)
         {
             return numbers
