@@ -37,7 +37,7 @@ namespace CSharpPracticum.Tasks.Level2
             
             WriteMore(path);
 
-            // 3) Проверка: файл закрыт, можем открыть и дописать
+           
             using (var appendWriter = new StreamWriter(path, append: true))
             {
                 appendWriter.WriteLine("Строка из другой программы");
