@@ -43,7 +43,7 @@ namespace CSharpPracticum.Tasks.Level2
 
             foreach (var group in grouped)
             {
-                Console.WriteLine($"{group.Letter}: {string.Join(", ", group.Words)}"); 
+                Console.WriteLine($"{group.Letter}: {string.Join(", ", group.Words)}");  
             }
         }
     }
