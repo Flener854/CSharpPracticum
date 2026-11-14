@@ -31,7 +31,7 @@ namespace CSharpPracticum.Tasks.Level2
                 .Select(g => new
                 {
                     Letter = g.Key,
-                    Words = g.OrderBy(w => w, StringComparer.CurrentCulture) // слова внутри
+                    Words = g.OrderBy(w => w, StringComparer.CurrentCulture) 
                 });
 
 
