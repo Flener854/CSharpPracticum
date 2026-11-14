@@ -27,7 +27,7 @@ namespace CSharpPracticum.Tasks.Level2
 
             var grouped = words
                 .GroupBy(w => w[0])                       
-                .OrderBy(g => g.Key)                      // группы по алфавиту
+                .OrderBy(g => g.Key)                      
                 .Select(g => new
                 {
                     Letter = g.Key,
