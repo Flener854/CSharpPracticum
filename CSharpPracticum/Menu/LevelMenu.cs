@@ -24,6 +24,9 @@ namespace CSharpPracticum.Menu
                 case "Level-2":
                     LevelDescription = "Уровень 2 — Средний (задания 16–35)";
                     break;
+                case "Level-3":
+                    LevelDescription = "Уровень 3 — Продвинутый (задания 36-50)";
+                    break;
                 default:
                     LevelDescription = "Неизвестный уровень";
                     break;
