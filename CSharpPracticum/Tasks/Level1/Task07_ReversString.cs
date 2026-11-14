@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CSharpPracticum.Tasks.Level1
 {
-    [Common.TaskInfoAttribute("Level-1")]
+    [Common.TaskInfoAttribute("Level-1",7)]
     internal class Task07_ReversString : Common.ITask
     {
         string ITask.Title => "Реверс строки без LINQ";

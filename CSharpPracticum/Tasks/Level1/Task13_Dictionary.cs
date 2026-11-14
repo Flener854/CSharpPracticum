@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CSharpPracticum.Tasks.Level1
 {
-    [Common.TaskInfoAttribute("Level-1")]
+    [Common.TaskInfoAttribute("Level-1",13)]
     internal class Task13_Dictionary : Common.ITask
     {
         string ITask.Title => "Счётчик вхождений слов в тексте (Dictionary)";

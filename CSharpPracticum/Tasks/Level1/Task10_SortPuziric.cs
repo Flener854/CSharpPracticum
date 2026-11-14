@@ -6,7 +6,7 @@ using System.Text;
 
 namespace CSharpPracticum.Tasks.Level1
 {
-    [Common.TaskInfoAttribute("Level-1")]
+    [Common.TaskInfoAttribute("Level-1",10)]
     internal class Task10_SortPuziric : Common.ITask
     {
         string ITask.Title => "Сортировка пузырьком + вставками";

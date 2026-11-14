@@ -6,7 +6,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CSharpPracticum.Tasks.Level1
 {
-    [Common.TaskInfoAttribute("Level-1")]
+    [Common.TaskInfoAttribute("Level-1",4)]
     internal class Task04_Chetnost : Common.ITask
     {
         string ITask.Title => "Чётность числа (два способа)";

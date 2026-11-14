@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CSharpPracticum.Tasks.Level1
 {
-    [Common.TaskInfoAttribute("Level-1")]
+    [Common.TaskInfoAttribute("Level-1",11)]
     internal class Task11_Diagonal : Common.ITask
     {
         string ITask.Title => "Диагональ матрицы N×N";

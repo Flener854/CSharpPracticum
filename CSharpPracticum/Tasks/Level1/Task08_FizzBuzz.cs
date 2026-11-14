@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CSharpPracticum.Tasks.Level1
 {
-    [Common.TaskInfoAttribute("Level-1")]
+    [Common.TaskInfoAttribute("Level-1",8)]
     internal class Task08_FizzBuzz : Common.ITask
     {
         string ITask.Title => "FizzBuzz 1–100";

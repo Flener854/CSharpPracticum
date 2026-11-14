@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CSharpPracticum.Tasks.Level1
 {
-    [Common.TaskInfoAttribute("Level-1")]
+    [Common.TaskInfoAttribute("Level-1",14)]
     internal class Task14_VozrastPoDate : Common.ITask
     {
         string ITask.Title => "Возраст по дате рождения";
