@@ -27,14 +27,14 @@ namespace CSharpPracticum.Tasks.Level2
         {
             string path = "log.txt";
 
-            // 1) Классический using-блок
+            
             using (var fw = new FileWriter(path))
             {
                 fw.WriteLine("Строка 1");
                 fw.WriteLine("Строка 2");
-            } // здесь Dispose() вызван автоматически — файл закрыт
+            } 
 
-            // 2) using-декларация (C# 8+) — Dispose в конце области видимости метода
+            
             WriteMore(path);
 
             // 3) Проверка: файл закрыт, можем открыть и дописать
@@ -47,7 +47,7 @@ namespace CSharpPracticum.Tasks.Level2
             Console.WriteLine("Содержимое файла:");
             Console.WriteLine(File.ReadAllText(path));
 
-            // 4) Проверка: обращение после Dispose бросает ObjectDisposedException
+            
             var disposed = new FileWriter("tmp.txt");
             disposed.Dispose();
             try
