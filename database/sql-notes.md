@@ -110,12 +110,66 @@ FROM Departments
 Здесь я уздал, как удобно создать базу данных одним запросом
 
 
-## Task 02 — Создание базы и таблиц
+## Task 02 — INSERT: заполнение данными
 
 ### SQL Запрос
 ```sql
-
+INSERT INTO Departments (DepartmentName) VALUES
+    (N'Разработка'),
+    (N'Аналитика'),
+    (N'Тестирование'),
+    (N'Менеджмент');
+GO
+INSERT INTO Employees (EmployeeName, Salary, HireDate, DepartmentId, ManagerId) VALUES
+    (N'Анна Иванова',    65000, '2020-03-15', 1, NULL),
+    (N'Пётр Сидоров',    72000, '2019-07-01', 1, NULL),
+    (N'Мария Кузнецова', 55000, '2021-11-20', 1, NULL),
+    (N'Иван Петров',     48000, '2023-02-10', 1, NULL),
+    (N'Ольга Смирнова',  61000, '2020-09-05', 2, NULL),
+    (N'Дмитрий Орлов',   58000, '2022-04-18', 2, NULL),
+    (N'Елена Волкова',   52000, '2023-06-01', 2, NULL),
+    (N'Сергей Морозов',  45000, '2021-12-12', 3, NULL),
+    (N'Наталья Соколова',43000, '2024-01-15', 3, NULL),
+    (N'Алексей Лебедев', 90000, '2018-05-25', 4, NULL);
+GO
+UPDATE Employees SET ManagerId = 1  WHERE EmployeeId = 4;
+UPDATE Employees SET ManagerId = 2  WHERE EmployeeId = 3;
+UPDATE Employees SET ManagerId = 5  WHERE EmployeeId = 6;
+UPDATE Employees SET ManagerId = 10 WHERE EmployeeId = 9;
+GO
+INSERT INTO Projects (ProjectName, StartDate) VALUES
+    (N'CRM System',      '2023-01-10'),
+    (N'Mobile App',      '2023-05-01'),
+    (N'Data Warehouse',  '2022-11-20'),
+    (N'AI Assistant',    '2024-02-01'),
+    (N'Legacy Refactor', '2021-06-15');
+GO
+INSERT INTO EmployeeProjects (EmployeeId, ProjectId, Hours) VALUES
+    (1, 1, 120), (1, 3, 80),
+    (2, 1, 150), (2, 4, 60),
+    (3, 2, 100), (4, 2, 90),
+    (4, 5, 40),  (5, 3, 110),
+    (6, 3, 70),  (6, 4, 50),
+    (7, 2, 95),  (8, 5, 130),
+    (10, 4, 200),(10, 1, 30);
+GO
+```
+Запрос проверки
+```sql
+SELECT 'Departments' AS TableName, COUNT(*) AS STRING FROM Departments
+UNION ALL
+SELECT 'Employees', COUNT(*) FROM Employees
+UNION ALL
+SELECT 'Projects', COUNT(*) FROM Projects
+UNION ALL
+SELECT 'EmployeeProjects', COUNT(*) FROM EmployeeProjects;
 ```
 ### Результат
-
+|TableName|STRING|
+|:----:|:----:|
+|Departments	|4|
+|Employees	|10|
+|Projects	|5|
+|EmployeeProjects|	14|
 ### Вывод
+Получено общее представление о вводе информации и выводе её из нужной таблицы
