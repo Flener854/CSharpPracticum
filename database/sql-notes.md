@@ -173,3 +173,36 @@ SELECT 'EmployeeProjects', COUNT(*) FROM EmployeeProjects;
 |EmployeeProjects|	14|
 ### Вывод
 Получено общее представление о вводе информации и выводе её из нужной таблицы
+
+
+## Task 03 — SELECT + WHERE: базовые выборки
+
+### SQL Запрос
+```sql
+SELECT EmployeeId, EmployeeName, Salary 
+FROM Employees 
+WHERE Salary > 50000;
+
+
+SELECT EmployeeId, EmployeeName, HireDate 
+FROM Employees 
+WHERE YEAR(HireDate) = 2023;
+
+SELECT EmployeeId, EmployeeName 
+FROM Employees 
+WHERE EmployeeName LIKE 'А%';
+
+
+SELECT EmployeeId, EmployeeName, DepartmentId 
+FROM Employees 
+WHERE DepartmentId = 2;
+
+
+SELECT EmployeeId, EmployeeName, Salary 
+FROM Employees 
+WHERE Salary BETWEEN 40000 AND 60000;
+```
+### Результат
+![Вывод](img/3.png)
+### Вывод
+Получено общее представление о выводе конкретной информации из нужной таблицы
