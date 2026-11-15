@@ -206,3 +206,28 @@ WHERE Salary BETWEEN 40000 AND 60000;
 ![Вывод](img/3.png)
 ### Вывод
 Получено общее представление о выводе конкретной информации из нужной таблицы
+
+
+## Task 04 — ORDER BY + TOP: сортировка и лимит
+
+### SQL Запрос
+```sql
+
+SELECT TOP 3 EmployeeId, EmployeeName, Salary 
+FROM Employees 
+ORDER BY Salary DESC;
+
+
+SELECT TOP 5 EmployeeId, EmployeeName, HireDate 
+FROM Employees 
+ORDER BY HireDate ASC;
+
+
+SELECT EmployeeId, EmployeeName, DepartmentId, Salary 
+FROM Employees 
+ORDER BY DepartmentId ASC, Salary DESC;
+```
+### Результат
+![Вывод](img/4.png)
+### Вывод
+Получено общее представление о выводе топа конкретных значений
