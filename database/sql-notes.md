@@ -231,3 +231,134 @@ ORDER BY DepartmentId ASC, Salary DESC;
 ![Вывод](img/4.png)
 ### Вывод
 Получено общее представление о выводе топа конкретных значений
+
+
+## Task 05 — Агрегация: COUNT, SUM, AVG, MIN, MAX
+
+### SQL Запрос
+```sql
+SELECT 
+    COUNT(*) AS Всего_сотрудников,
+    SUM(Salary) AS Сумма_зарплат,
+    ROUND(AVG(Salary), 2) AS Средняя_зарплата,
+    MIN(Salary) AS Мин_зп,
+    MAX(Salary) AS Макс_зп,
+    SUM(CASE WHEN Salary > 50000 THEN 1 ELSE 0 END) AS Количество_человек_с_зп_больше_50к
+FROM Employees;
+```
+### Результат
+![Вывод](img/5.png)
+### Вывод
+Получено общее представление о выводе подсчётов
+
+
+## Task 06 — GROUP BY: статистика по отделам
+
+### SQL Запрос
+```sql
+SELECT 
+    DepartmentId AS [Код отдела],
+    COUNT(*) AS [Количество сотрудников],
+    AVG(Salary) AS [Средняя зарплата],
+    SUM(Salary) AS [Суммарная зарплата]
+FROM Employees
+GROUP BY DepartmentId
+ORDER BY [Средняя зарплата] DESC;
+```
+### Результат
+![Вывод](img/6.png)
+### Вывод
+Получено представление о выводе верной группировке и сортировке 
+
+
+## Task 07 — GROUP BY + HAVING: фильтрация групп
+
+### SQL Запрос
+```sql
+
+SELECT 
+    DepartmentId AS [Код отдела],
+    COUNT(*) AS [Количество сотрудников]
+FROM Employees
+GROUP BY DepartmentId
+HAVING COUNT(*) > 2;
+
+
+SELECT 
+    DepartmentId AS [Код отдела],
+    AVG(Salary) AS [Средняя зарплата]
+FROM Employees
+GROUP BY DepartmentId
+HAVING AVG(Salary) > 55000;
+
+
+SELECT 
+    DepartmentId AS [Код отдела],
+    SUM(Salary) AS [Суммарная зарплата]
+FROM Employees
+GROUP BY DepartmentId
+HAVING SUM(Salary) > 150000;
+```
+### Результат
+![Вывод](img/7.png)
+### Вывод
+Получено представление о фильтрации групп
+
+
+## Task 08 — INNER JOIN: сотрудники и отделы
+
+### SQL Запрос
+```sql
+SELECT 
+    e.EmployeeName AS [Сотрудник],
+    d.DepartmentName AS [Отдел],
+    e.Salary AS [Зарплата]
+FROM Employees e
+INNER JOIN Departments d ON e.DepartmentId = d.DepartmentId
+ORDER BY d.DepartmentName ASC, e.Salary DESC;
+```
+### Результат
+![Вывод](img/8.png)
+### Вывод
+Получено представление о объединении таблиц
+
+
+## Task 09 — LEFT JOIN: сотрудники без проектов
+
+### SQL Запрос
+```sql
+SELECT 
+    e.EmployeeId AS EmployeeId,
+    e.EmployeeName AS EmployeeName
+FROM Employees e
+LEFT JOIN EmployeeProjects ep ON e.EmployeeId = ep.EmployeeId
+WHERE ep.EmployeeId IS NULL;
+```
+### Результат
+![Вывод](img/9.png)
+### Вывод
+Получено представление о поиске записей в одной таблице, у которых нет связей в другой
+
+
+## Task 10 — Множественный JOIN: сотрудники, отделы, проекты
+
+### SQL Запрос
+```sql
+SELECT 
+    e.EmployeeName AS [Имя сотрудника],
+    d.DepartmentName AS [Название отдела],
+    p.ProjectName AS [Название проекта],
+    ep.Hours AS [Количество часов]
+FROM Employees e
+INNER JOIN Departments d ON e.DepartmentId = d.DepartmentId
+INNER JOIN EmployeeProjects ep ON e.EmployeeId = ep.EmployeeId
+INNER JOIN Projects p ON ep.ProjectId = p.ProjectId
+ORDER BY 
+    d.DepartmentName ASC, 
+    e.EmployeeName ASC, 
+    p.ProjectName ASC;
+```
+### Результат
+![Вывод](img/10.png)
+### Вывод
+Закрепление всех знаний уровня
