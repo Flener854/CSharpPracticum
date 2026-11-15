@@ -1,3 +1,7 @@
 <Solution>
+  <Folder Name="/database/">
+    <File Path="init.sql" />
+    <File Path="sql-notes.md" />
+  </Folder>
   <Project Path="CSharpPracticum/CSharpPracticum.csproj" />
 </Solution>
