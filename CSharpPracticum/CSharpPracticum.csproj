@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Tasks\Level3\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EditorConfigFiles Remove="C:\Users\Flen\source\repos\CSharpPracticum\CSharpPracticum\.editorconfig" />
   </ItemGroup>
 
