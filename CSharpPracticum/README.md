@@ -9,12 +9,7 @@
    * Любая IDE (Visual Studio 2026, JetBrains Rider, VS Code).
    * Git.
 
-2. **Клонирование репозитория:**
-   ```bash
-   git clone https://github.com/ваш-профиль/CSharpPracticum.git
-   cd CSharpPracticum
-
-3. **Запуск:**
+2. **Запуск:**
    * Через терминал:
 	 dotnet run --project ИмяПроекта
    *Через Visual Studio / Rider: 
