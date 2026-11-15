@@ -12,7 +12,8 @@
 2. **Запуск:**
    * Через терминал:
 	 dotnet run --project ИмяПроекта
-   *Через Visual Studio / Rider: 
+
+   * Через Visual Studio / Rider: 
      откройте файл решения (.sln), выберите нужный проект (например, Task42_CancellationToken) и нажмите F5.
 
 ## Таблица заданий
