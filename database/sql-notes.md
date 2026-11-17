@@ -653,3 +653,215 @@ GO
 ![Вывод](img/20.png)
 ### Вывод
 Получено представление о индексации
+
+
+## Task 21 — Хранимые процедуры
+
+### SQL Запрос
+```sql
+-- 1. Процедура для получения сотрудников отдела
+CREATE PROCEDURE sp_GetEmployeesByDepartment 
+    @DeptId INT
+AS
+BEGIN
+    SELECT EmployeeId, EmployeeName, Salary, HireDate 
+    FROM Employees 
+    WHERE DepartmentId = @DeptId;
+END;
+GO
+
+-- Вызов процедуры
+EXEC sp_GetEmployeesByDepartment @DeptId = 1;
+GO
+
+-- 2. Процедура с OUTPUT-параметром (средняя зарплата отдела)
+CREATE PROCEDURE sp_GetAvgSalaryByDepartment
+    @DeptId INT,
+    @AvgSalary DECIMAL(10,2) OUTPUT
+AS
+BEGIN
+    SELECT @AvgSalary = ISNULL(AVG(Salary), 0)
+    FROM Employees 
+    WHERE DepartmentId = @DeptId;
+END;
+GO
+
+-- Вызов процедуры с OUTPUT
+DECLARE @Result DECIMAL(10,2);
+EXEC sp_GetAvgSalaryByDepartment @DeptId = 1, @AvgSalary = @Result OUTPUT;
+SELECT @Result AS [Средняя зарплата отдела 1];
+GO
+```
+### Результат
+![Вывод](img/21.png)
+### Вывод
+Получено представление о процедурах
+
+
+## Task 22 — Функции: скалярная и табличная
+
+### SQL Запрос
+```sql
+USE PracticeDB;
+GO
+
+-- 1. Скалярная функция
+CREATE FUNCTION fn_GetAnnualSalary (@MonthlySalary DECIMAL(10,2))
+RETURNS DECIMAL(10,2)
+AS
+BEGIN
+    RETURN @MonthlySalary * 12;
+END;
+GO
+
+
+SELECT 
+    EmployeeName AS [Сотрудник], 
+    Salary AS [ЗП в месяц], 
+    dbo.fn_GetAnnualSalary(Salary) AS [Годовая ЗП]
+FROM Employees;
+GO
+
+-- 2. Табличная функция (Inline Table-Valued)
+CREATE FUNCTION fn_GetEmployeesBySalaryRange (
+    @Min DECIMAL(10,2), 
+    @Max DECIMAL(10,2)
+)
+RETURNS TABLE
+AS
+RETURN
+(
+    SELECT EmployeeId, EmployeeName, Salary, DepartmentId
+    FROM Employees
+    WHERE Salary BETWEEN @Min AND @Max
+);
+GO
+
+
+SELECT * FROM dbo.fn_GetEmployeesBySalaryRange(50000, 70000);
+GO
+```
+### Результат
+![Вывод](img/22.png)
+### Вывод
+Получено представление о функциях
+
+
+## Task 23 — Оконные функции: ROW_NUMBER, RANK, DENSE_RANK
+
+### SQL Запрос
+```sql
+SELECT 
+    EmployeeName AS [Сотрудник],
+    DepartmentId AS [Отдел],
+    Salary AS [Зарплата],
+    ROW_NUMBER() OVER (ORDER BY Salary DESC) AS [RowNumber],
+    RANK() OVER (PARTITION BY DepartmentId ORDER BY Salary DESC) AS [Rank],
+    DENSE_RANK() OVER (PARTITION BY DepartmentId ORDER BY Salary DESC) AS [DenseRank]
+FROM Employees
+ORDER BY DepartmentId, Salary DESC;
+```
+### Результат
+![Вывод](img/23.png)
+### Вывод
+Получено представление об оконных функциях
+
+
+## Task 24 — Оконные агрегаты: SUM OVER, AVG OVER
+
+### SQL Запрос
+```sql
+SELECT 
+    EmployeeName AS [Сотрудник],
+    DepartmentId AS [Отдел],
+    Salary AS [Зарплата],
+    SUM(Salary) OVER (PARTITION BY DepartmentId) AS [Сумма по отделу],
+    AVG(Salary) OVER (PARTITION BY DepartmentId) AS [Средняя по отделу],
+    ROUND(Salary - AVG(Salary) OVER (PARTITION BY DepartmentId), 2) AS [Отклонение от средней]
+FROM Employees
+ORDER BY DepartmentId, Salary DESC;
+```
+### Результат
+![Вывод](img/24.png)
+### Вывод
+Получено представление об оконных агрегатах(функции)
+
+
+## Task 25 — CTE (Common Table Expressions)
+
+### SQL Запрос
+```sql
+WITH AvgSalaryCTE AS (
+    SELECT AVG(Salary) AS AvgSal FROM Employees
+)
+SELECT 
+    e.EmployeeName AS [Сотрудник], 
+    e.Salary AS [Зарплата]
+FROM Employees e
+CROSS JOIN AvgSalaryCTE a
+WHERE e.Salary > a.AvgSal;
+
+
+WITH DeptAvg AS (
+    SELECT 
+        DepartmentId, 
+        AVG(Salary) AS AvgDeptSalary
+    FROM Employees
+    GROUP BY DepartmentId
+)
+SELECT TOP 3 
+    d.DepartmentName AS [Отдел], 
+    ROUND(da.AvgDeptSalary, 2) AS [Средняя зарплата]
+FROM DeptAvg da
+JOIN Departments d ON da.DepartmentId = d.DepartmentId
+ORDER BY da.AvgDeptSalary DESC;
+```
+### Результат
+![Вывод](img/25.png)
+### Вывод
+CTE проще читается
+
+
+## Task 26 — CASE: условная логика в SELECT
+
+### SQL Запрос
+```sql
+SELECT 
+    EmployeeName AS [Сотрудник],
+    Salary AS [Зарплата],
+    CASE 
+        WHEN Salary > 60000 THEN 'High'
+        WHEN Salary >= 40000 AND Salary <= 60000 THEN 'Medium'
+        ELSE 'Low'
+    END AS [SalaryLevel],
+    HireDate AS [Дата найма],
+    CASE 
+        WHEN HireDate < '2020-01-01' THEN 'Senior'
+        WHEN HireDate >= '2020-01-01' AND HireDate <= '2022-12-31' THEN 'Mid'
+        ELSE 'Junior'
+    END AS [Tenure]
+FROM Employees;
+```
+### Результат
+![Вывод](img/26.png)
+### Вывод
+Получено представление о работе с CASE
+
+
+## Task 27 — Работа с датами: DATEADD, DATEDIFF, FORMAT
+
+### SQL Запрос
+```sql
+SELECT 
+    EmployeeName AS [Сотрудник],
+    HireDate AS [Дата найма],
+    DATEDIFF(YEAR, HireDate, GETDATE()) AS [Лет стажа],
+    DATEDIFF(MONTH, HireDate, GETDATE()) AS [Месяцев стажа],
+    DATEADD(YEAR, 1, HireDate) AS [Годовщина],
+    FORMAT(HireDate, 'dd.MM.yyyy') AS [Формат даты]
+FROM Employees;
+```
+### Результат
+![Вывод](img/27.png)
+### Вывод
+Получено представление о работе с датами
