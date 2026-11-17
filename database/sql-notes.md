@@ -362,3 +362,294 @@ ORDER BY
 ![Вывод](img/10.png)
 ### Вывод
 Закрепление всех знаний уровня
+
+
+## Task 11 — Self-join: иерархия руководителей
+
+### SQL Запрос
+```sql
+SELECT 
+    e.EmployeeName AS [Сотрудник],
+    m.EmployeeName AS [Руководитель]
+FROM Employees e
+LEFT JOIN Employees m ON e.ManagerId = m.EmployeeId
+ORDER BY m.EmployeeName DESC, e.EmployeeName;
+```
+### Результат
+![Вывод](img/11.png)
+### Вывод
+Разобрался в конструкции SELF JOIN
+
+
+## Task 12 — Подзапросы в WHERE
+
+### SQL Запрос
+```sql
+SELECT 
+    EmployeeName AS [Сотрудник], 
+    Salary AS [Зарплата]
+FROM Employees
+WHERE Salary > (SELECT AVG(Salary) FROM Employees);
+
+SELECT 
+    EmployeeName AS [Сотрудник], 
+    Salary AS [Зарплата]
+FROM Employees
+WHERE Salary = (SELECT MAX(Salary) FROM Employees);
+```
+### Результат
+![Вывод](img/12.png)
+### Вывод
+Понял как делать подзапросы в условии
+
+
+## Task 13 — Скалярные подзапросы в SELECT
+
+### SQL Запрос
+```sql
+SELECT 
+    e.EmployeeName AS [Сотрудник],
+    e.Salary AS [Зарплата],
+    e.DepartmentId AS [Код отдела],
+    ROUND(
+        e.Salary - (SELECT AVG(Salary) FROM Employees WHERE DepartmentId = e.DepartmentId), 
+        2
+    ) AS [Отклонение от средней по отделу]
+FROM Employees e
+ORDER BY e.DepartmentId, e.EmployeeName;
+```
+### Результат
+![Вывод](img/13.png)
+### Вывод
+Получено представление о скалярных запросах SELECT
+
+
+## Task 14 — EXISTS / NOT EXISTS
+### SQL Запрос
+```sql
+SELECT 
+    e.EmployeeName AS [Сотрудник]
+FROM Employees e
+WHERE EXISTS (
+    SELECT 1 
+    FROM EmployeeProjects ep 
+    WHERE ep.EmployeeId = e.EmployeeId
+);
+
+SELECT 
+    e.EmployeeName AS [Сотрудник]
+FROM Employees e
+WHERE NOT EXISTS (
+    SELECT 1 
+    FROM EmployeeProjects ep 
+    WHERE ep.EmployeeId = e.EmployeeId
+);
+```
+### Результат
+![Вывод](img/14.png)
+### Вывод
+Получено представление о запросах EXISTS / NOT EXISTS
+
+
+## Task 15 — UNION / UNION ALL
+
+### SQL Запрос
+```sql
+-- UNION 
+SELECT EmployeeName AS [Сотрудник], Salary AS [Зарплата], HireDate AS [Дата найма], 'Высокая ЗП' AS [Причина]
+FROM Employees
+WHERE Salary > 60000
+UNION
+SELECT EmployeeName, Salary, HireDate, 'Старый сотрудник'
+FROM Employees
+WHERE HireDate < '2022-01-01';
+
+-- UNION ALL 
+SELECT EmployeeName AS [Сотрудник], Salary AS [Зарплата], HireDate AS [Дата найма], 'Высокая ЗП' AS [Причина]
+FROM Employees
+WHERE Salary > 60000
+UNION ALL
+SELECT EmployeeName, Salary, HireDate, 'Старый сотрудник'
+FROM Employees
+WHERE HireDate < '2022-01-01';
+
+-- сравнение
+SELECT COUNT(*) AS [Кол-во строк UNION]
+FROM (
+    SELECT EmployeeId FROM Employees WHERE Salary > 60000
+    UNION
+    SELECT EmployeeId FROM Employees WHERE HireDate < '2022-01-01'
+) t;
+
+SELECT COUNT(*) AS [Кол-во строк UNION ALL]
+FROM (
+    SELECT EmployeeId FROM Employees WHERE Salary > 60000
+    UNION ALL
+    SELECT EmployeeId FROM Employees WHERE HireDate < '2022-01-01'
+) t;
+```
+### Результат
+![Вывод](img/15.png)
+### Вывод
+Получено представление о запросах UNION / UNION ALL
+
+
+## Task 16 — UPDATE: изменение данных
+
+### SQL Запрос
+```sql
+SELECT EmployeeId, EmployeeName, Salary AS [ЗП До] FROM Employees WHERE DepartmentId = 1;
+
+UPDATE Employees 
+SET Salary = Salary * 1.10 
+WHERE DepartmentId = 1;
+
+SELECT EmployeeId, EmployeeName, Salary AS [ЗП После] FROM Employees WHERE DepartmentId = 1;
+
+
+UPDATE Employees 
+SET Salary = Salary + 5000 
+WHERE HireDate < '2022-01-01';
+
+
+SELECT EmployeeId, EmployeeName, HireDate AS [Дата До] FROM Employees WHERE EmployeeId = 4;
+
+UPDATE Employees 
+SET HireDate = '2023-03-01' 
+WHERE EmployeeId = 4;
+
+SELECT EmployeeId, EmployeeName, HireDate AS [Дата После] FROM Employees WHERE EmployeeId = 4;
+```
+### Результат
+![Вывод](img/16.png)
+### Вывод
+Получено представление о запросах обновления данных
+
+
+## Task 17 — DELETE: удаление данных
+
+### SQL Запрос
+```sql
+SELECT COUNT(*) AS [Назначений с 0 часов] FROM EmployeeProjects WHERE Hours = 0;
+DELETE FROM EmployeeProjects WHERE Hours = 0;
+SELECT COUNT(*) AS [Осталось с 0 часов] FROM EmployeeProjects WHERE Hours = 0;
+
+
+SELECT COUNT(*) AS [Всего сотрудников] FROM Employees;
+
+DELETE FROM EmployeeProjects WHERE EmployeeId = 9;
+DELETE FROM Employees WHERE EmployeeId = 9;
+
+SELECT COUNT(*) AS [Осталось сотрудников] FROM Employees;
+
+
+SELECT * INTO #TempTable FROM EmployeeProjects;
+SELECT COUNT(*) AS [В копии До] FROM #TempTable;
+
+DELETE FROM #TempTable; -- Без WHERE (удаляет всё)
+
+SELECT COUNT(*) AS [В копии После] FROM #TempTable;
+DROP TABLE #TempTable;
+```
+### Результат
+![Вывод](img/17.png)
+### Вывод
+Получено представление о запросах удаления данных
+
+
+## Task 18 — BEGIN TRAN / COMMIT / ROLLBACK
+
+### SQL Запрос
+```sql
+BEGIN TRY
+    -- 1. ТЕСТ ROLLBACK
+    BEGIN TRANSACTION;
+    
+    SELECT EmployeeName AS [Имя], Salary AS [ЗП Исходная] FROM Employees WHERE EmployeeId = 1;
+    
+    UPDATE Employees SET Salary = 999999 WHERE EmployeeId = 1;
+    
+    SELECT EmployeeName AS [Имя], Salary AS [ЗП Внутри транзакции] FROM Employees WHERE EmployeeId = 1;
+    
+    ROLLBACK TRANSACTION;
+    PRINT '--- Выполнен ROLLBACK ---';
+    
+    SELECT EmployeeName AS [Имя], Salary AS [ЗП После ROLLBACK] FROM Employees WHERE EmployeeId = 1;
+
+    -- 2. ТЕСТ COMMIT
+    BEGIN TRANSACTION;
+    
+    UPDATE Employees SET Salary = 70000 WHERE EmployeeId = 1;
+    
+    SELECT EmployeeName AS [Имя], Salary AS [ЗП Внутри 2-й транзакции] FROM Employees WHERE EmployeeId = 1;
+    
+    COMMIT TRANSACTION;
+    PRINT '--- Выполнен COMMIT ---';
+    
+    SELECT EmployeeName AS [Имя], Salary AS [ЗП После COMMIT] FROM Employees WHERE EmployeeId = 1;
+END TRY
+BEGIN CATCH
+    IF @@TRANCOUNT > 0 ROLLBACK TRANSACTION;
+    PRINT 'Ошибка: ' + ERROR_MESSAGE();
+END CATCH;
+```
+### Результат
+![Вывод](img/18.png)
+### Вывод
+Получено представление о транзакциях, print комменты выводятся в сообщениях, в выводе их нет
+
+
+## Task 19 — Представления (VIEW)
+
+### SQL Запрос
+```sql
+CREATE VIEW vw_EmployeeDetails AS
+SELECT 
+    e.EmployeeName AS [Сотрудник],
+    d.DepartmentName AS [Отдел],
+    p.ProjectName AS [Проект],
+    ep.Hours AS [Часы]
+FROM Employees e
+INNER JOIN Departments d ON e.DepartmentId = d.DepartmentId
+INNER JOIN EmployeeProjects ep ON e.EmployeeId = ep.EmployeeId
+INNER JOIN Projects p ON ep.ProjectId = p.ProjectId;
+GO
+
+
+SELECT * FROM vw_EmployeeDetails;
+
+
+DROP VIEW vw_EmployeeDetails;
+```
+### Результат
+![Вывод](img/19.png)
+### Вывод
+Получено представление о представлениях view
+
+
+## Task 20 — 
+
+### SQL Запрос
+```sql
+SET STATISTICS IO ON;
+GO
+
+SELECT * FROM Employees 
+WHERE DepartmentId = 1 AND Salary > 50000;
+GO
+
+CREATE INDEX IX_Employees_DepartmentId ON Employees(DepartmentId);
+CREATE INDEX IX_Employees_Salary ON Employees(Salary);
+GO
+
+SELECT * FROM Employees 
+WHERE DepartmentId = 1 AND Salary > 50000;
+GO
+
+SET STATISTICS IO OFF;
+GO
+```
+### Результат
+![Вывод](img/20.png)
+### Вывод
+Получено представление о индексации
